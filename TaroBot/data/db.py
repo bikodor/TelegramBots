@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, Column, String, Date, Integer, VARCHAR
 from datetime import date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from TaroBot.parse_taro import taro_day, parse_layout
+from parse_taro import taro_day, parse_layout
 
 engine = create_engine('sqlite:///tip_day.db')
 Base = declarative_base(name='Base')
