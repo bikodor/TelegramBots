@@ -1,11 +1,11 @@
 from aiogram import Router, F
 from aiogram.filters import CommandStart
 from aiogram.types import Message, CallbackQuery
-from TaroBot.keyboards.inline import generator_buttons, zodiac_signs
+from keyboards.inline import generator_buttons, zodiac_signs
 from aiogram.fsm.context import FSMContext
-from TaroBot.utils.states import Zodiac, YesOrNot
-from TaroBot.data.db import get_zodiac_tip_day
-from TaroBot.parse_taro import parse_layout, taro_love, taro_money, taro_yes_or_not
+from utils.states import Zodiac, YesOrNot
+from data.db import get_zodiac_tip_day
+from parse_taro import parse_layout, taro_love, taro_money, taro_yes_or_not
 
 
 
