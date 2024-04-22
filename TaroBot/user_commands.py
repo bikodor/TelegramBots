@@ -1,11 +1,11 @@
 from aiogram import Router, F
 from aiogram.filters import CommandStart
 from aiogram.types import Message, CallbackQuery
-from keyboards.inline import generator_buttons, zodiac_signs
+from TaroBot.keyboards.inline import generator_buttons, zodiac_signs
 from aiogram.fsm.context import FSMContext
-from utils.states import Zodiac, YesOrNot
-from data.db import get_zodiac_tip_day
-from parse_taro import parse_layout, tarot_cards_with_values
+from TaroBot.utils.states import Zodiac, YesOrNot
+from TaroBot.data.db import get_zodiac_tip_day
+from TaroBot.parse_taro import parse_layout, taro_love, taro_money, taro_yes_or_not
 
 
 
@@ -39,12 +39,12 @@ async def menu(query: CallbackQuery, state:FSMContext):
 
 @router.callback_query(F.data == 'layout_love')
 async def layout_love(query: CallbackQuery):
-    text = parse_layout(tarot_cards_with_values, layout_love=True)
+    text = parse_layout(taro_love, layout_love=True)
     await query.message.answer(f'Совет карт в любви и отношениях.\n{text}', reply_markup=generator_buttons(['Назад'], ['menu'], 1))
 
 @router.callback_query(F.data == 'layout_money')
 async def layout_money(query: CallbackQuery):
-    text = parse_layout(tarot_cards_with_values, layout_money=True)
+    text = parse_layout(taro_money, layout_money=True)
     await query.message.answer(f'Совет карт в работе и финансах.\n{text}', reply_markup=generator_buttons(['Назад'], ['menu'], 1))
 
 
@@ -57,5 +57,5 @@ async def layout_money(query: CallbackQuery, state: FSMContext):
 @router.message(YesOrNot.question)
 async def layout_money(message: Message, state: FSMContext):
     await state.clear()
-    text = parse_layout(tarot_cards_with_values, layout_yes_or_not=True)
+    text = parse_layout(taro_yes_or_not, layout_yes_or_not=True)
     await message.answer(f'Совет карт на вопрос Да или Нет.\n{text}', reply_markup=generator_buttons(['Назад'], ['menu'], 1))
