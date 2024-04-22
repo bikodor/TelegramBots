@@ -1,6 +1,6 @@
 import re
 
-from sqlalchemy import create_engine, Column, String, Date, Integer
+from sqlalchemy import create_engine, Column, String, Date, Integer, VARCHAR
 from datetime import date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -15,6 +15,7 @@ class TipDay(Base):
     zodiac = Column(String)
     text = Column(String)
     update_date = Column(Date)
+    search_field = Column(VARCHAR)
 
 
 Base.metadata.create_all(engine)
@@ -44,5 +45,4 @@ async def get_zodiac_tip_day(zodiac, message):
 
     finally:
         session.close()
-
 
