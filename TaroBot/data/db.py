@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, Column, String, Date, Integer, VARCHAR
 from datetime import date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from parse_taro import get_layout_three_cards, tarot_cards_with_values, parse_layout
+from TaroBot.parse_taro import taro_day, parse_layout
 
 engine = create_engine('sqlite:///tip_day.db')
 Base = declarative_base(name='Base')
@@ -33,7 +33,7 @@ async def get_zodiac_tip_day(zodiac, message):
             if zodiac_sign.update_date == date.today():
                 return zodiac_sign.text
             else:
-                txt = parse_layout(tarot_cards_with_values, tip_day=True)
+                txt = parse_layout(taro_day, tip_day=True)
                 zodiac_sign.text = txt
                 zodiac_sign.update_date = date.today()
                 session.commit()
@@ -45,4 +45,3 @@ async def get_zodiac_tip_day(zodiac, message):
 
     finally:
         session.close()
-
