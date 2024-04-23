@@ -100,18 +100,17 @@ async def main_menu(query: CallbackQuery):
 async def calculate_message(query: CallbackQuery):
     if check_russian_user(query.from_user.id):
         response = get_main_news_ru()
-        news_papers = ['Лента: ', 'Медуза: ', 'РИА Новости: ', 'BBC Russia: ']
-        i = 0
+
         for post in response:
-            await query.message.answer(f'🔥{news_papers[i]}{post["title"]}🔥', reply_markup=href_builder_ru(post['link']))
-            i += 1
+            title = post[1]
+            await query.message.answer(f'🔥{post[0]}{title["title"]}🔥', reply_markup=href_builder_ru(title['link']))
+
     else:
         response = get_main_news_en()
-        news_papers = ['Breaking News: ', 'NBC News: ', 'World BBC News: ', 'Fox News: ']
-        i = 0
         for post in response:
-            await query.message.answer(f'🔥{news_papers[i]}{post["title"]}🔥', reply_markup=href_builder_en(post['link']))
-            i += 1
+            title = post[1]
+            await query.message.answer(f'🔥{post[0]}{title["title"]}🔥', reply_markup=href_builder_en(title['link']))
+
 
 @router.callback_query(F.data == 'change_lang')
 async def change_language(query: CallbackQuery):
